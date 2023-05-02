@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List Application</title>
+  <style>
+    /* Add CSS styling here */
+  </style>
+</head>
+<body>
+  <div>
+    <h1>To-Do List</h1>
+    <input type="text" id="taskInput">
+    <button onclick="addTask()">Add Task</button>
+  </div>
+  <ul id="taskList"></ul>
+  <script>
+    function addTask() {
+      // Get the input value
+      var task = document.getElementById("taskInput").value;
+      
+      // Create a new list item
+      var listItem = document.createElement("li");
+      var taskText = document.createTextNode(task);
+      listItem.appendChild(taskText);
+      
+      // Add buttons for editing and deleting tasks
+      var editButton = document.createElement("button");
+      editButton.innerHTML = "Edit";
+      listItem.appendChild(editButton);
+      
+      var deleteButton = document.createElement("button");
+      deleteButton.innerHTML = "Delete";
+      listItem.appendChild(deleteButton);
+      
+      // Add the new list item to the task list
+      document.getElementById("taskList").appendChild(listItem);
+      
+      // Clear the input field
+      document.getElementById("taskInput").value = "";
+    }
+    
+    // Add event listeners to handle editing and deleting tasks
+    document.getElementById("taskList").addEventListener("click", function(e) {
+      if (e.target && e.target.nodeName == "BUTTON") {
+        if (e.target.innerHTML == "Edit") {
+          var taskText = e.target.parentNode.firstChild.nodeValue;
+          var newTask = prompt("Enter new task", taskText);
+          e.target.parentNode.firstChild.nodeValue = newTask;
+        } else {
+          e.target.parentNode.remove();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
